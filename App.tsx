@@ -1,5 +1,5 @@
 
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View,Button } from 'react-native';
 import CategoriesScreen from './screens/CategoriesScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -32,7 +32,13 @@ export default function App() {
             };
           }}
            />
-           <Stack.Screen name="MealDetail" component={MealDetailScreen}/>
+           <Stack.Screen name="MealDetail" component={MealDetailScreen} 
+          //  options={
+          //   {headerRight:()=>{
+          //     return <Button title='Spank me?'></Button>
+          //   }}
+          //  }
+           />
         </Stack.Navigator>
       </NavigationContainer>
 
