@@ -1,11 +1,54 @@
-
+import 'react-native-gesture-handler';
 import { StyleSheet, Text, View,Button } from 'react-native';
 import CategoriesScreen from './screens/CategoriesScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MealsOverviewScreen from './screens/MealsOverviewScreen';
 import MealDetailScreen from './screens/MealDetailScreen';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import FavoritesScreen from './screens/FavoritesScreen';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import IonIcons from 'react-native-vector-icons/Ionicons'
+const Tab = createBottomTabNavigator();
 const Stack=createStackNavigator();
+const Drawer = createDrawerNavigator();
+function DrawerNavigator() {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerStyle:{ backgroundColor:'#cb202d'},
+        headerTintColor:'white',
+      }}
+    >
+      <Tab.Screen
+        name="Categories"
+        component={CategoriesScreen}
+        options={{
+          title: 'All Categories',
+          tabBarIcon: ({focused}) => {
+            return (
+              <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                <IonIcons name="ios-fast-food" size={25} />
+              </View>
+            );
+          },
+        }}
+      />
+      <Tab.Screen name="Favorites" component={FavoritesScreen} options={{
+          title: 'Favorites',
+          tabBarIcon: ({focused}) => {
+            return (
+              <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                <IonIcons name="heart" size={25} />
+              </View>
+            );
+          },
+        }}/>
+    </Tab.Navigator>
+  );
+}
+
 export default function App() {
   return (
       <NavigationContainer>
@@ -16,10 +59,10 @@ export default function App() {
             cardStyle:{backgroundColor:'#f4f4f2'}
           }}>
           <Stack.Screen
-           name="MealsCategories" 
-           component={CategoriesScreen}
+           name="Drawer" 
+           component={DrawerNavigator}
            options={{
-            title:'All food Category'
+            headerShown:false
            }}
           />
           <Stack.Screen
@@ -58,17 +101,4 @@ const styles = StyleSheet.create({
 });
 
 
-// import { createStackNavigator } from '@react-navigation/stack';
 
-// const Stack = createStackNavigator();
-
-// function MyStack() {
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen name="Home" component={Home} />
-//       <Stack.Screen name="Notifications" component={Notifications} />
-//       <Stack.Screen name="Profile" component={Profile} />
-//       <Stack.Screen name="Settings" component={Settings} />
-//     </Stack.Navigator>
-//   );
-// }
