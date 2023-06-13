@@ -1,21 +1,32 @@
+import React, { useContext, useLayoutEffect } from 'react';
 import { StyleSheet, Text,ScrollView, View ,Image,TextStyle ,Button} from 'react-native'
-import { useLayoutEffect } from 'react';
-import React from 'react'
 import { MEALS } from '../data/dummy-data';
 import MealDetails from '../components/MealDetails';
 import SubTitle from '../components/MealDetail/SubTitle';
 import List from '../components/MealDetail/List';
 import IconButton from '../components/IconButton';
+import { FavouritesContextProvider, FavouritesContext } from '../store/context/favorites-context';
+
+
 function MealDetailScreen  ({route,navigation}){
+  const favouriteMealCtx=useContext(FavouritesContext);
   const mealId=route.params.mealId;
   const selectMeal=MEALS.find((meal)=>meal.id===mealId);
+  const mealIsFavourite=favouriteMealCtx.ids.includes(mealId);
   function headerButtonPressHandler(){
-  console.log('spank me');
+  if(mealIsFavourite)
+  {
+    favouriteMealCtx.removeFavourites(mealId);
+  }
+  else
+  {
+    favouriteMealCtx.addFavorite(mealId);
+  }
   }
   useLayoutEffect(()=>{
     navigation.setOptions({
       headerRight:()=>{
-        return <IconButton  title='hello' icon={'star'} color={'white'} onPress={headerButtonPressHandler}/>
+        return <IconButton  title='hello' icon={mealIsFavourite? 'star':'staro'} color={'white'} onPress={headerButtonPressHandler}/>
       }
     })
   },[navigation,headerButtonPressHandler]);

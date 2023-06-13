@@ -10,6 +10,8 @@ import FavoritesScreen from './screens/FavoritesScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import IonIcons from 'react-native-vector-icons/Ionicons'
+import {FavouritesContextProvider }from './store/context/favorites-context';
+
 const Tab = createBottomTabNavigator();
 const Stack=createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -51,7 +53,8 @@ function DrawerNavigator() {
 
 export default function App() {
   return (
-      <NavigationContainer>
+    <FavouritesContextProvider>
+<NavigationContainer>
         <Stack.Navigator screenOptions={{
             title:"Foodie Place",
             headerStyle:{ backgroundColor:'#cb202d'},
@@ -84,7 +87,8 @@ export default function App() {
            />
         </Stack.Navigator>
       </NavigationContainer>
-
+    </FavouritesContextProvider>
+      
       // <View>
       //   <CategoriesScreen></CategoriesScreen>
       // </View>
